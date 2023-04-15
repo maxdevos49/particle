@@ -1,0 +1,14 @@
+{
+    "loader": "ts-node/esm",
+    "extensions": [
+        "ts"
+    ],
+    "spec": [
+        "tests/**/*.test.*"
+    ],
+    "watch-files": [
+        "src/**/*.ts"
+    ],
+    "recursive": true,
+    "all": true
+}
