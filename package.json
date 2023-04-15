@@ -1,11 +1,28 @@
 {
     "name": "@m4xdev/particle",
     "version": "0.0.1",
-    "description": "particle",
+    "description": "A simple 3D particle library.",
     "author": "Maxwell DeVos",
     "license": "ISC",
-    "keywords": [],
+    "keywords": [
+        "particle",
+        "particles",
+        "particle1d",
+        "particle2d",
+        "particle3d",
+        "vector",
+        "vectors",
+        "vector1d",
+        "vector2d",
+        "vector3d",
+        "immutable"
+    ],
     "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
     "type": "module",
     "scripts": {
         "build": "tsc",
@@ -14,7 +31,9 @@
         "coverage": "npm run test && open coverage/lcov-report/index.html",
         "format": "prettier --config .prettierrc.json './src/**/*' --write",
         "lint": "eslint './**/*.ts' --fix",
-        "clean": "rm -rf dist coverage"
+        "clean": "rm -rf dist coverage",
+        "prepublish": "npm run clean && npm run format && npm run lint && npm run build && npm run test",
+        "publish": "npm publish --access public"
     },
     "devDependencies": {
         "@types/mocha": "^10.0.1",
@@ -32,5 +51,13 @@
     },
     "dependencies": {
         "@m4xdev/vector": "^0.0.2"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maxdevos49/particle.git"
+    },
+    "bugs": {
+        "url": "https://github.com/maxdevos49/particle/issues"
+    },
+    "homepage": "https://github.com/maxdevos49/particle#readme"
 }
