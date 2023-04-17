@@ -1,6 +1,6 @@
 {
     "name": "@m4xdev/particle",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A simple 3D particle library.",
     "author": "Maxwell DeVos",
     "license": "ISC",
@@ -32,8 +32,7 @@
         "format": "prettier --config .prettierrc.json './src/**/*' --write",
         "lint": "eslint './**/*.ts' --fix",
         "clean": "rm -rf dist coverage",
-        "prepublish": "npm run clean && npm run format && npm run lint && npm run build && npm run test",
-        "publish": "npm publish --access public"
+        "prepublish": "npm run clean && npm run format && npm run lint && npm run build && npm run test"
     },
     "devDependencies": {
         "@types/mocha": "^10.0.1",

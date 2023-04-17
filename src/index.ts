@@ -27,11 +27,10 @@ function applyForce<TAttributes extends ParticleAttributes>(particle: Particle<T
 	}
 
 	const newVelocity = Vector3.add(particle.velocity, force);
-	const newPosition = Vector3.add(particle.position, newVelocity);
 
 	return {
 		velocity: newVelocity,
-		position: newPosition,
+		position: structuredClone(particle.position),
 		attributes: particle.attributes ? structuredClone(particle.attributes) : undefined
 	};
 }
@@ -42,10 +41,23 @@ function applyScalar<TAttributes extends ParticleAttributes>(particle: Particle<
 	}
 
 	const newVelocity = Vector3.mult(particle.velocity, scalar);
-	const newPosition = Vector3.add(particle.position, newVelocity);
 
 	return {
 		velocity: newVelocity,
+		position: structuredClone(particle.position),
+		attributes: particle.attributes ? structuredClone(particle.attributes) : undefined
+	};
+}
+
+function step<TAttributes extends ParticleAttributes>(particle: Particle<TAttributes>): Particle<TAttributes> {
+	if (particle.attributes?.static) {
+		return structuredClone(particle);
+	}
+
+	const newPosition = Vector3.add(particle.position, particle.velocity);
+
+	return {
+		velocity: structuredClone(particle.position),
 		position: newPosition,
 		attributes: particle.attributes ? structuredClone(particle.attributes) : undefined
 	};
@@ -54,7 +66,8 @@ function applyScalar<TAttributes extends ParticleAttributes>(particle: Particle<
 const Particle3D = {
 	create,
 	applyForce,
-	applyScalar
+	applyScalar,
+	step
 };
 
 export { Particle, ParticleAttributes, Particle3D };
