@@ -1,6 +1,11 @@
 import { Vector, Vector3 } from '@m4xdev/vector';
 
-type ParticleAttributes = Record<string, string | number | boolean>;
+type ParticleAttributes = {
+	/**
+	 * Static particles do not move based on applied forces or scalars.
+	 */
+	static?: boolean;
+};
 
 interface Particle<TAttributes extends ParticleAttributes> {
 	position: Vector;
@@ -17,6 +22,10 @@ function create<TAttributes extends ParticleAttributes>(position?: Vector, veloc
 }
 
 function applyForce<TAttributes extends ParticleAttributes>(particle: Particle<TAttributes>, force: Vector): Particle<TAttributes> {
+	if (particle.attributes?.static) {
+		return structuredClone(particle);
+	}
+
 	const newVelocity = Vector3.add(particle.velocity, force);
 	const newPosition = Vector3.add(particle.position, newVelocity);
 
@@ -28,6 +37,10 @@ function applyForce<TAttributes extends ParticleAttributes>(particle: Particle<T
 }
 
 function applyScalar<TAttributes extends ParticleAttributes>(particle: Particle<TAttributes>, scalar: number): Particle<TAttributes> {
+	if (particle.attributes?.static) {
+		return structuredClone(particle);
+	}
+
 	const newVelocity = Vector3.mult(particle.velocity, scalar);
 	const newPosition = Vector3.add(particle.position, newVelocity);
 
